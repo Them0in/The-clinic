@@ -1,0 +1,57 @@
+import {ToastContainer } from "react-toastify";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Layout from "./components/Layout"
+import Dashboard from "./pages/Dashboard"
+import Doctors from "./pages/Doctors"
+import Patient from "./pages/Patient"
+import Specialist from "./pages/Specialist"
+
+
+function App() {
+
+  return (
+      <BrowserRouter>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+        <Routes>
+          <Route path="/Login" element={<Login/>}/>
+          <Route path="/Register" element={<Register />}/>
+          
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />}/>
+            <Route path="/doctors" element={<Doctors />}/>
+            <Route path="/Patients" element={<Patient />}/>
+            <Route path="/Specialties" element={<Specialist/>}/>
+            {/* 
+            <Route path="/Appointment" element={<Appointemtn />}/>
+            <Route path="/Doctors" element={<Doctors />}/>
+            <Route path="/Report" element={<Report/>}/>
+            <Route path="/Schedules" element={<Schedules/>}/>
+            <Route path="/Setting" element={<Setting/>}/>
+             */}
+            
+                
+                    <Route path="appointments" element={<div>صفحه نوبت‌ها</div>} />
+                    <Route path="schedules" element={<div>صفحه برنامه‌ها</div>} />
+                    <Route path="reports" element={<div>صفحه گزارشات</div>} />
+                    <Route path="settings" element={<div>صفحه تنظیمات</div>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+  )
+}
+
+export default App
