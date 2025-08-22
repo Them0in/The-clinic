@@ -52,6 +52,7 @@ export default function Doctors(){
         },
     });
 
+
     
 
     const getDocs = async () => {
@@ -151,7 +152,7 @@ export default function Doctors(){
                         onClick={() => setShowForm(!showForm)}
                         className="bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-lg"
                         >
-                        + افزودن بیمار
+                        + افزودن دکتر
                         </button>
                     </div>
                     {/* header patient form */}
@@ -235,28 +236,25 @@ export default function Doctors(){
                                         <option value={2}>زن</option>
                                     </select>
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col relative w-full">
                                     <select
-                                    defaultValue=""
-                                    {...register("specialtyId", { required: "انتخاب تخصص الزامی است" })}
-                                    className="border p-2 rounded"
+                                        {...register("specialtyId", { required: "انتخاب تخصص الزامی است" })}
+                                        className="border p-2 rounded w-full"
+                                        defaultValue=""
                                     >
-                                    <option value="" disabled>
-                                        انتخاب تخصص
-                                    </option>
-                                    {speci.map((sp: any) => (
-                                        <option key={sp.id} value={sp.id}>
-                                        {sp.name}
-                                        </option>
-                                    ))}
+                                        <option value="" disabled>انتخاب تخصص</option>
+                                        {speci.map((sp: any) => (
+                                        <option key={sp.id} value={sp.id}>{sp.name}</option>
+                                        ))}
                                     </select>
 
                                     {errors.specialtyId && (
-                                        <span className="text-red-500 text-xs mt-1">
-                                        {errors.specialtyId.message}
-                                        </span>
+                                        <span className="text-red-500 text-xs mt-1">{errors.specialtyId.message}</span>
                                     )}
-                                </div>
+                                    </div>
+
+
+
                                 <div className="grid grid-cols-2 gap-2">
                                     <button
                                         onClick={ addDocs}
