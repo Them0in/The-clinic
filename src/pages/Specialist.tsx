@@ -98,33 +98,33 @@ export default function Specialist(){
                     </div>
                     {/* header patient form */}
                     {showForm && (
-                        <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                        <div className="grid grid-cols-1 ">
-                            <input
-                            type="text"
-                            className="border p-2 rounded"
-                            value={formData.name}
-                            placeholder="نام تخصص"
-                            onChange={(e) =>
-                                setFormData({ ...formData, name: e.target.value })
-                            }
-                            />
-                        </div>
-                        <div className="mt-4 flex gap-2">
-                            <button
-                            type="submit"
-                            onClick={addspecialties}
-                            className="bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-lg"
-                            >
-                            ثبت
-                            </button>
-                            <button
-                            onClick={() => setShowForm(false)}
-                            className="bg-gray-400 cursor-pointer hover:bg-gray-500 text-white px-4 py-2 rounded-lg"
-                            >
-                            انصراف
-                            </button>
-                        </div>
+                        <div className="bg-gray-100  p-4 rounded-lg mb-4 flex justify-between  ">
+                            <div className="grid grid-cols-1">
+                                <input
+                                type="text"
+                                className="border p-2 rounded"
+                                value={formData.name}
+                                placeholder="نام تخصص"
+                                onChange={(e) =>
+                                    setFormData({ ...formData, name: e.target.value })
+                                }
+                                />
+                            </div>
+                            <div className=" flex gap-2  ">
+                                <button
+                                type="submit"
+                                onClick={addspecialties}
+                                className="bg-green-500 cursor-pointer hover:bg-green-600 text-white px-7 py-2 rounded-lg"
+                                >
+                                ثبت
+                                </button>
+                                <button
+                                onClick={() => setShowForm(false)}
+                                className="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+                                >
+                                انصراف
+                                </button>
+                            </div>
                         </div>
                     )}
 
