@@ -1,6 +1,6 @@
 import axios from "axios";
 import { use, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import {ToastContainer , toast } from "react-toastify";
 
 export default function Specialist(){
       const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +71,19 @@ export default function Specialist(){
 
       return(
         <>
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        />
+           
         <div className="relative max-w-6xl mx-auto ">
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}
@@ -114,17 +127,6 @@ export default function Specialist(){
                         </div>
                         </div>
                     )}
-
-                    {/* search*/}
-                    {/* <div className="mb-3    ">
-                        <input
-                        type="text"
-                        placeholder="جست و جوی بیمار مورد نظر"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-700"
-                        />
-                    </div> */}
 
                     {/* table  */}
                     <div className="bg-white rounded-lg shadow">

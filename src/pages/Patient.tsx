@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { toast } from "react-toastify";
+import { ToastContainer , toast } from "react-toastify";
 
 
 
@@ -82,7 +82,7 @@ export default function Patient(){
         })
         setPatients(response.data)
         } catch (error) {
-            console.log("حطا در جست جو" , error);
+            console.log("خطا در جست جو" , error);
             
         }
     }
@@ -110,6 +110,18 @@ export default function Patient(){
 
     return(
         <>
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
             <div className="relative max-w-6xl mx-auto ">
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}

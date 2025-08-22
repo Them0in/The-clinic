@@ -27,7 +27,6 @@ export default function Header() {
  const handleLogout = () => {
   localStorage.removeItem("userId");
   localStorage.removeItem("fullName");
-  // let other components (like Dashboard) know
   window.dispatchEvent(new Event("loginStatusChanged"));
   window.location.reload();
 };
@@ -37,7 +36,7 @@ export default function Header() {
 
   return (
     <header className="bg-green-600">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+      <div className="max-w-8xl mx-auto flex justify-between items-center py-4 px-6">
         {/* Login / Register */}
         <div className="flex items-center gap-3">
           {isLoggedIn ? (
