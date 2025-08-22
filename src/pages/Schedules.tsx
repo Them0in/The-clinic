@@ -32,7 +32,6 @@ export default function Schedules(){
 
     const [docs , setDocs] = useState([])
     const [sch , setSch] = useState([])
-    const [searchTerm, setSearchTerm] = useState("");
     const [showForm, setShowForm] = useState(false);
     
     const {
@@ -89,6 +88,7 @@ export default function Schedules(){
             getSch()
             resetForm()
             toast.success("برنامه زمانی با موفقیت اضافه شد")
+            setShowForm(false);
 
         } catch (error) {
             toast.error(error.response.data)

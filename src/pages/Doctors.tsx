@@ -88,7 +88,7 @@ export default function Doctors(){
             getDocs()
             reset()
             toast.success("دکتر با موفقیت اضافه شد")
-
+            setShowForm(false);
         } catch (error) {
             toast.error(error.response.data)
             console.log(error.response.data);

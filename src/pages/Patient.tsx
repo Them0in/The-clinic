@@ -67,6 +67,8 @@ export default function Patient(){
         await axios.post("https://nowruzi.top/api/Clinic/patients", data)
         toast.success("بیمار با موفقیت اضافه شد")
         getPatients()
+        reset()
+        setShowForm(false);
         } catch (error) {
             console.log("خطا در اضافه کردن بیمار", error);
             
