@@ -102,7 +102,7 @@ export default function Specialist(){
                         <div className="grid grid-cols-1 ">
                             <input
                             type="text"
-                            className="border p-4 rounded"
+                            className="border p-2 rounded"
                             value={formData.name}
                             placeholder="نام تخصص"
                             onChange={(e) =>
