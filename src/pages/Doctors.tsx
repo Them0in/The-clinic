@@ -36,15 +36,22 @@ export default function Doctors(){
     
     const [speci , setSpeci] = useState([])
 
-
-    const [formData, setFormData] = useState({
+    const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    } = useForm({
+        defaultValues: {
         specialtyId: 0,
         firstName: "",
         lastName: "",
         medicalLicenseNumber: "ML00",
         phoneNumber: "09",
         gender: 1,
+        },
     });
+
     
 
     const getDocs = async () => {
@@ -74,19 +81,11 @@ export default function Doctors(){
     }
 
 
-    const addDocs = async () => {
+    const addDocs = async (data:any) => {
         try {
-            await axios.post("https://nowruzi.top/api/Clinic/doctors", formData)
-            setShowForm(false)
-            setFormData({
-                specialtyId: 0,
-                firstName: "",
-                lastName: "",
-                medicalLicenseNumber: "ML00",
-                phoneNumber: "09",
-                gender: 1,}
-            )
+            await axios.post("https://nowruzi.top/api/Clinic/doctors", data)
             getDocs()
+            reset()
             toast.success("دکتر با موفقیت اضافه شد")
 
         } catch (error) {
@@ -157,56 +156,107 @@ export default function Doctors(){
                     </div>
                     {/* header patient form */}
                     {showForm && (
+                        <form onSubmit={handleSubmit(addDocs)}>
                         <div className="rounded-lg mb-3 p-3">
                             <div className="grid grid-cols-3 gap-3">
-                                <input placeholder="نام"
-                                        value={formData.firstName}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, firstName: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="نام خانوادگی"
-                                        value={formData.lastName}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, lastName: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="شماره نظام پزشکی"
-                                        value={formData.medicalLicenseNumber}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, medicalLicenseNumber: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="شماره تماس"
-                                        value={formData.phoneNumber}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, phoneNumber: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <select
-                                    value={formData.gender}
-                                    onChange={(e) =>
-                                        setFormData({ ...formData, gender: Number(e.target.value) })
-                                    }
-                                    className="border p-2 rounded"
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="نام"
+                                        {...register("firstName", { required: "نام الزامی است" })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.firstName && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.firstName.message}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="نام خانوادگی"
+                                        {...register("lastName", { required: "نام خانوادگی الزامی است" })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.lastName && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.lastName.message}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="شماره نظام پزشکی"
+                                        {...register("medicalLicenseNumber", {
+                                        required: "شماره نظام پزشکی الزامی است",
+                                        minLength: { value: 10, message: "حداقل باید 10 کاراکتر باشد" },
+                                        pattern: {
+                                            value: /^ML00\d+$/,
+                                            message: "باید با ML00 شروع شود و بعدش عدد بیاید",
+                                        },
+                                        })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.medicalLicenseNumber && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.medicalLicenseNumber.message}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="flex flex-col">  
+                                    <input
+                                        placeholder="شماره تماس"
+                                        {...register("phoneNumber", {
+                                        required: "شماره تماس الزامی است",
+                                        minLength:{
+                                            value:11,
+                                            message: "حداقل باید 11 کاراکتر باشد",
+                                        },
+                                        
+                                        pattern: {
+                                            value: /^09\d{9}$/,
+                                            message: "شماره باید با 09 شروع شود و 11 رقم باشد",
+                                        },
+                                        })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.phoneNumber && (
+                                        <span className="text-red-500"> {errors.phoneNumber.message}</span>
+                                    )}
+                                </div> 
+                                <div className="flex flex-col">
+                                    <select
+                                        {...register("gender", { required: "انتخاب جنسیت الزامی است" })}
+                                        className="border p-2 rounded"
                                     >
-                                    <option value={1}>مرد</option>
-                                    <option value={2}>زن</option>
+                                        <option value={1}>مرد</option>
+                                        <option value={2}>زن</option>
                                     </select>
-                                <select
-                                    value={formData.gender}
-                                    onChange={(e) =>
-                                        setFormData({ ...formData, specialtyId: Number(e.target.value) })
-                                    }
+                                </div>
+                                <div className="flex flex-col">
+                                    <select
+                                    defaultValue=""
+                                    {...register("specialtyId", { required: "انتخاب تخصص الزامی است" })}
                                     className="border p-2 rounded"
                                     >
-                                    <option value={0}>انتخاب تخصص</option>
-                                    {speci.map((sp: any) => (
-                                    <option key={sp.id} value={sp.id}>
-                                        {sp.name}
+                                    <option value="" disabled>
+                                        انتخاب تخصص
                                     </option>
+                                    {speci.map((sp: any) => (
+                                        <option key={sp.id} value={sp.id}>
+                                        {sp.name}
+                                        </option>
                                     ))}
-                                </select>    
+                                    </select>
+
+                                    {errors.specialtyId && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.specialtyId.message}
+                                        </span>
+                                    )}
+                                </div>
                                 <div className="grid grid-cols-2 gap-2">
                                     <button
                                         onClick={ addDocs}
@@ -223,6 +273,7 @@ export default function Doctors(){
                                 </div>
                             </div>
                         </div>
+                        </form>
                     )}
 
                     {/* search*/}
@@ -281,7 +332,7 @@ export default function Doctors(){
                 </div>
                 {/* Overlay when not logged in */}
                 {!isLoggedIn && (
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-start justify-center pt-60">
                     <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
                         <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
                         <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { ToastContainer , toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 
 
@@ -27,15 +28,24 @@ export default function Patient(){
     }, []);
 
     const [showForm, setShowForm] = useState(false);
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        nationalCode: "",
-        phoneNumber: "",
-        dateOfBirth: "",
-        gender: 1,
-        address: "",
-    });
+
+
+     const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+        } = useForm({
+            defaultValues: {
+            firstName: "",
+            lastName: "",
+            nationalCode: "",
+            phoneNumber: "",
+            dateOfBirth: "",
+            gender: 1,
+            address: "",
+            },
+        });
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -52,19 +62,9 @@ export default function Patient(){
         }
     }
 
-    const addPatient = async () => {
+    const addPatient = async (data:any) => {
         try {
-        await axios.post("https://nowruzi.top/api/Clinic/patients", formData)
-        setShowForm(false)
-        setFormData({
-            firstName: "",
-            lastName: "",
-            nationalCode: "",
-            phoneNumber: "",
-            dateOfBirth: "",
-            gender: 1,
-            address: "",}
-        )
+        await axios.post("https://nowruzi.top/api/Clinic/patients", data)
         toast.success("بیمار با موفقیت اضافه شد")
         getPatients()
         } catch (error) {
@@ -137,8 +137,125 @@ export default function Patient(){
                     {/* header patient form */}
                     {showForm && (
                         <div className="rounded-lg mb-3 p-3">
+                            <form onSubmit={handleSubmit(addPatient)}>
                             <div className="grid grid-cols-3 gap-3">
-                                <input placeholder="نام"
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="نام"
+                                        {...register("firstName", { required: "نام الزامی است" })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.firstName && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.firstName.message}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="نام خانوادگی"
+                                        {...register("lastName", { required: "نام خانوادگی الزامی است" })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.lastName && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.lastName.message}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col">
+                                    <input
+                                        placeholder="کد ملی"
+                                        {...register("nationalCode", {
+                                        required: "شماره نظام پزشکی الزامی است",
+                                        minLength: { value: 10, message: "حداقل باید 10 کاراکتر باشد" },
+                                        maxLength: { value: 10, message: "حداکثر باید 10 کاراکتر باشد" }
+                                        
+                                        })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.nationalCode && (
+                                        <span className="text-red-500 text-xs mt-1">
+                                        {errors.nationalCode.message}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col">  
+                                    <input
+                                        placeholder="شماره تماس"
+                                        {...register("phoneNumber", {
+                                        required: "شماره تماس الزامی است",
+                                        minLength:{
+                                            value:11,
+                                            message: "حداقل باید 11 کاراکتر باشد",
+                                        },
+                                        
+                                        pattern: {
+                                            value: /^09\d{9}$/,
+                                            message: "شماره باید با 09 شروع شود و 11 رقم باشد",
+                                        },
+                                        })}
+                                        className="border p-2 rounded"
+                                    />
+                                    {errors.phoneNumber && (
+                                        <span className="text-red-500"> {errors.phoneNumber.message}</span>
+                                    )}
+                                </div>
+                                <div className="relative w-full">
+                                    <input
+                                        type="date"
+                                        {...register("dateOfBirth", { required: "تاریخ تولد الزامی است" })}
+                                        className="border rounded p-2 w-full placeholder-transparent peer"
+                                        placeholder="تاریخ تولد"
+                                    />
+                                    <label className="absolute pr-6 right-3 top-2.5 text-gray-500 text-sm pointer-events-none transition-all 
+                                        peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
+                                        تاریخ تولد
+                                    </label>
+
+                                    {errors.dateOfBirth && (
+                                        <span className="text-red-500 text-sm">{errors.dateOfBirth.message}</span>
+                                    )}
+                                </div>
+                                <div className="flex flex-col">
+                                    <select
+                                        {...register("gender", { required: "انتخاب جنسیت الزامی است" })}
+                                        className="border p-2 rounded"
+                                    >
+                                        <option value={1}>مرد</option>
+                                        <option value={2}>زن</option>
+                                    </select>
+                                </div>
+                                <div className="relative col-span-2">
+                                    <textarea
+                                        placeholder="آدرس"
+                                        {...register("address", { required: "آدرس الزامی است" })}
+                                        className="border p-2 rounded w-full placeholder-transparent peer"
+                                    />
+                                    <label className="absolute right-3 top-2.5 text-gray-500 text-sm pointer-events-none transition-all 
+                                        peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
+                                        آدرس
+                                    </label>
+
+                                    {errors.address && (
+                                        <span className="text-red-500 text-sm">{errors.address.message}</span>
+                                    )}
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <button
+                                        onClick={ addPatient}
+                                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                                        >
+                                        افزودن
+                                        </button>
+                                        <button
+                                        onClick={() => setShowForm(false)}
+                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                                        >
+                                        انصراف
+                                    </button>
+                                </div>   
+                                {/* <input placeholder="نام"
                                         value={formData.firstName}
                                         onChange={(e) =>
                                             setFormData({ ...formData, firstName: e.target.value })
@@ -209,9 +326,11 @@ export default function Patient(){
                                     >
                                     انصراف
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
+                            </form>
                         </div>
+                        
                     )}
 
                     {/* search*/}
