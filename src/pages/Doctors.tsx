@@ -147,7 +147,7 @@ export default function Doctors(){
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
-                        <h1 className="text-3xl font-bold text-gray-800">لیست بیماران</h1>
+                        <h1 className="text-3xl font-bold text-gray-800">لیست دکتران</h1>
                         <button
                         onClick={() => setShowForm(!showForm)}
                         className="bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-lg"
