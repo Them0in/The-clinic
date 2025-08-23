@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {ToastContainer , toast } from "react-toastify/unstyled";
 import { Check, X } from "lucide-react";
+import Patient from "./Patient";
 
 
 
@@ -156,6 +157,69 @@ const searchAppointment = async (data:any) => {
         }
     }
 
+
+    // searchpart
+    const [editappo , setEditappo] = useState(null)
+    const [editform, setEditform] = useState({
+        patientId: 0,
+        doctorScheduleId: 0,
+        reason: "",
+        notes: "",
+    });
+
+    const editappies = async(docie:any) => {
+    setEditappo(docie);
+    setEditform({
+        patientId: docie.patientId || "" ,
+        doctorScheduleId:docie.doctorScheduleId || "",
+        reason: docie.reason || "",
+        notes: docie.notes || "",
+    })
+
+    }
+
+    const closeEdit = () => {
+        setEditappo(null)
+    }
+
+    const changeEdit = (e: any) => {
+    const { name, value } = e.target;
+    setEditform((prev:any) => ({ ...prev, [name]: value }));
+    };
+
+    const saveEdit = async() => {
+        try {
+            await axios.put(`https://nowruzi.top/api/Clinic/appointments/${editappo.id}`, editform)
+            toast.success("ویرایش با موفقیت انجام شد")
+            closeEdit()
+            getAppointment()
+            
+        } catch (error) {
+            toast.error(error.response.data)
+            console.log("خطا در ویرایش" ,error.response.data );
+            
+        }
+
+    }
+
+    // cancel part
+    const [selectedId, setSelectedId] = useState(null);
+    const [cancelAppointment, setCancelAppointment] = useState(false);
+    const [cancelReason, setCancelReason] = useState({
+        cancellationReason: "",
+    });
+    const cancelappo = async() => {
+        try {
+            await axios.post(`https://nowruzi.top/api/Clinic/appointments/${selectedId}/cancel` , cancelReason)
+            setCancelAppointment(false)
+            getAppointment()
+            toast.success("نوبت با موفقیت لغو شد")
+        } catch (error) {
+            toast.error(error.response.data)
+            console.log(error.response.data , "خطا در لغو");
+            
+        }
+    }
 
     return(
         <>
@@ -373,18 +437,35 @@ const searchAppointment = async (data:any) => {
 
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                {/* <button
-                                    onClick={() => handleEdit(patient)}
+                                <button
+                                    onClick={() => editappies(docies)}
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
                                 >
                                     ویرایش
-                                </button> */}
-                                <button
+                                </button>
+                                {docies.status === "فعال" ? (
+                                    <button
+                                    onClick={() => {
+                                        setSelectedId(docies.id);
+                                        setCancelAppointment(true);
+                                    }}
+                                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                                    >
+                                    لغو
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}  
+                                {docies.status === "لغو شده" ? (
+                                    <button
                                     onClick={() => deleteAppointment(docies.id)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                                 >
                                     حذف
                                 </button>
+                                ):
+                                <></>
+                                }
                                 </td>
                             </tr>
                             ))}
@@ -401,6 +482,111 @@ const searchAppointment = async (data:any) => {
                         <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
                     </div>
                     </div>
+                )}
+                {editappo && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+                    
+                        <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
+                            <h2 className="text-xl font-bold mb-4">ویرایش نوبت</h2>
+                        
+                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
+                                <select
+                                
+                                    name="patientId"
+                                    value={editform.patientId}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+                                    defaultValue={editform.patientId}
+                                    >
+                                    {/* <option value={0} disabled>{editform.patientId}</option> */}
+                                    {patients.map((sp: any) => (
+                                    <option key={sp.id} value={sp.id}>{sp.fullName}</option>
+                                    ))}
+                                    </select>  
+                                <select                               
+                                    name="doctorScheduleId"
+                                    value={editform.doctorScheduleId}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+                                    defaultValue={editform.doctorScheduleId}
+                                    >
+                                    {/* <option value={0} disabled> {editform.doctorScheduleId} </option> */}
+                                    {docs.map((dc: any) => (
+                                    <option key={dc.doctor.id} value={dc.doctor.id}>
+                                        {dc.doctor.fullName}
+                                    </option>
+                                    ))}
+                                    </select>  
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    value={editform.reason}
+                                    onChange={changeEdit}
+                                    placeholder="دلیل"
+                                    className="border p-2 rounded mb-2 w-full col-span-2"
+                                    />   
+                                <input
+                                    type="text"
+                                    name="notes"
+                                    value={editform.notes}
+                                    onChange={changeEdit}
+                                    placeholder="یادداشت"
+                                    className="border p-2 rounded mb-2 w-full col-span-2"
+                                    />                                  
+                            </div>
+                            <div className="flex justify-end space-x-2 rtl:space-x-reverse grid grid-cols-2">
+                                <button
+                                    onClick={closeEdit}
+                                    className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
+                                >
+                                    لغو
+                                </button>
+                                <button
+                                    onClick={saveEdit}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                >
+                                    ذخیره
+                                </button>
+                            </div>
+                        </div>       
+
+
+
+                    </div>
+                   
+                )}
+                {/* cancel reason page*/}
+                {cancelAppointment && (
+                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
+                    <div className="bg-white rounded-lg shadow-lg w-90 p-6" dir="rtl">
+                        <h2 className="text-lg font-bold mb-4 text-gray-800">لغو نوبت</h2>
+                        <textarea
+                            className="w-full border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-black-400 resize-none"
+                            placeholder="دلیل لغو"
+                            value={cancelReason.cancellationReason}
+                            onChange={(e) =>
+                            setCancelReason({
+                                ...cancelReason,
+                                cancellationReason: e.target.value,
+                            })
+                            }
+                        />
+                        <div className="flex  gap-2" >
+                            <button
+                            onClick={() => setCancelAppointment(false)}
+                            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+                            >
+                            انصراف
+                            </button>
+                            <button
+                            onClick={cancelappo}
+                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                            >
+                            لغو
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 )}
             </div>
 
