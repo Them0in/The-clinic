@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard"
 import Doctors from "./pages/Doctors"
 import Patient from "./pages/Patient"
 import Specialist from "./pages/Specialist"
+import Appointment from "./pages/Appointments";
 import Schedules from "./pages/Schedules";
 
 function App() {
@@ -36,16 +37,14 @@ function App() {
             <Route path="/Patients" element={<Patient />}/>
             <Route path="/Specialties" element={<Specialist/>}/>
             <Route path="/Schedules" element={<Schedules/>}/>
+            <Route path="/appointments" element={<Appointment />}/>
             {/* 
-            <Route path="/Appointment" element={<Appointemtn />}/>
-            <Route path="/Doctors" element={<Doctors />}/>
-            <Route path="/Report" element={<Report/>}/>
-            
+            <Route path="/Report" element={<Report/>}/>        
             <Route path="/Setting" element={<Setting/>}/>
              */}
             
                 
-                    <Route path="appointments" element={<div>صفحه نوبت‌ها</div>} />
+
                     <Route path="reports" element={<div>صفحه گزارشات</div>} />
                     <Route path="settings" element={<div>صفحه تنظیمات</div>} />
           </Route>

@@ -172,7 +172,7 @@ const searchSch = async (data:any) => {
 
                                 <div className="flex flex-col relative w-full">
                                     <select
-                                        {...registerForm("doctorId", { required: "انتخاب دکتز الزامی است" })}
+                                        {...registerForm("doctorId", { required: "انتخاب دکتر الزامی است" })}
                                         className="border p-2 rounded w-full"
                                         defaultValue=""
                                     >
