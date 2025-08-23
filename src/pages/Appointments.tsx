@@ -66,7 +66,7 @@ export default function Appointment(){
 
     const getDocs = async () => {
         try {
-            const response = await axios.get("https://nowruzi.top/api/Clinic/doctors")
+            const response = await axios.get("https://nowruzi.top/api/Clinic/schedules")
             setDocs(response.data)
         } catch (error) {
             console.log("خطا در بارگزاری دکترها" , error);
@@ -215,8 +215,8 @@ const searchAppointment = async (data:any) => {
                                         <option value={0} disabled>انتخاب دکتر</option>
                                         {docs.map((dc: any) => (
                                         <option key={dc.id} value={dc.id}>
-                                        {dc.lastName}    {dc.dayDisplay}   {" "}
-                                        {dc.isAvailable ? <Check/> : <X/>}
+                                        {dc.doctor.fullName}    {dc.dayDisplay}   {" "}
+                                        {dc.isAvailable ? "فعال" : "غیر فعال"}
                                         </option>
                                         ))}
                                     </select>
@@ -226,9 +226,26 @@ const searchAppointment = async (data:any) => {
                                     )}
                                 </div>
                                 
-                                
+                                <div className="relative col-span-2">
+                                    <textarea
+                                        placeholder="دلیل ثبت نوبت"
+                                        {...registerForm("reason", { required: "دلیل الزامی است" })}
+                                        className="border p-2 rounded w-full peer"
+                                    />
 
-                                <div className="grid grid-cols-2 gap-2">
+                                    {errorsForm.reason && (
+                                        <span className="text-red-500 text-sm">{errorsForm.reason.message}</span>
+                                    )}
+                                </div>
+                                <div className="relative col-span-2">
+                                    <textarea
+                                        placeholder="یادداشت"
+                                        {...registerForm("notes")}
+                                        className="border p-2 rounded w-full peer"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-4 gap-2">
                                     <button
                                         onClick={ addAppointment}
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
@@ -335,8 +352,7 @@ const searchAppointment = async (data:any) => {
                             <th className="px-4 py-3 text-center">نام بیمار</th>
                             <th className="px-4 py-3 text-center">نام دکتر</th>
                             <th className="px-4 py-3 text-center">شماره تماس بیمار</th>
-                            <th className="px-4 py-3 text-center">تاریخ نوبت</th>  
-                            <th className="px-4 py-3 text-center">تعداد نوبت </th>   
+                            <th className="px-4 py-3 text-center">تاریخ نوبت</th>   
                             <th className="px-4 py-3 text-center">دلیل نوبت</th>     
                             <th className="px-4 py-3 text-center">وضعیت</th>                   
                             <th className="px-4 py-3 text-center">عملیات</th>
@@ -352,12 +368,6 @@ const searchAppointment = async (data:any) => {
                                 <td className="px-4 py-3 text-center">{docies.doctorSchedule.dayDisplay}</td>
                                 <td className="px-4 py-3 text-center">{docies.reason}</td>
                                 <td className="px-4 py-3 text-center">{docies.status}</td>
-                                <td className="px-4 py-3 text-center ">
-                                    <span className=" flex justify-center">
-                                    
-                                    {docies.isAvailable  ? <Check /> : <X />}
-                                    </span>
-                                </td>
 
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">

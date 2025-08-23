@@ -232,12 +232,8 @@ export default function Patient(){
                                     <textarea
                                         placeholder="آدرس"
                                         {...register("address", { required: "آدرس الزامی است" })}
-                                        className="border p-2 rounded w-full placeholder-transparent peer"
+                                        className="border p-2 rounded w-full peer"
                                     />
-                                    <label className="absolute right-3 top-2.5 text-gray-500 text-sm pointer-events-none transition-all 
-                                        peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
-                                        آدرس
-                                    </label>
 
                                     {errors.address && (
                                         <span className="text-red-500 text-sm">{errors.address.message}</span>
@@ -257,78 +253,6 @@ export default function Patient(){
                                         انصراف
                                     </button>
                                 </div>   
-                                {/* <input placeholder="نام"
-                                        value={formData.firstName}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, firstName: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="نام خانوادگی"
-                                        value={formData.lastName}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, lastName: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="کد ملی"
-                                        value={formData.nationalCode}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, nationalCode: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <input placeholder="شماره تماس"
-                                        value={formData.phoneNumber}
-                                        onChange={(e) =>
-                                            setFormData({ ...formData, phoneNumber: e.target.value })
-                                        } 
-                                        className="border rounded p-2"/>
-                                <div className="relative">
-                                    <input
-                                        type="date"
-                                        value={formData.dateOfBirth}
-                                        onChange={(e) =>
-                                        setFormData({ ...formData, dateOfBirth: e.target.value })
-                                        }
-                                        className="border rounded p-2  w-full placeholder-transparent peer"
-                                        placeholder="تاریخ تولد"
-                                    />
-                                    <label className="absolute right-9 top-2.5 text-gray-500 text-sm pointer-events-none transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
-                                        تاریخ تولد
-                                    </label>
-                                </div>
-
-
-                                <select
-                                    value={formData.gender}
-                                    onChange={(e) =>
-                                        setFormData({ ...formData, gender: Number(e.target.value) })
-                                    }
-                                    className="border p-2 rounded"
-                                    >
-                                    <option value={1}>مرد</option>
-                                    <option value={2}>زن</option>
-                                    </select>
-                                <textarea
-                                placeholder="آدرس"
-                                value={formData.address}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, address: e.target.value })
-                                }
-                                className="border p-2 rounded col-span-2"
-                                />
-                                <div className="grid grid-cols-2 gap-2">
-                                    <button
-                                    onClick={ addPatient}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-                                    >
-                                    افزودن
-                                    </button>
-                                    <button
-                                    onClick={() => setShowForm(false)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-                                    >
-                                    انصراف
-                                    </button>
-                                </div> */}
                             </div>
                             </form>
                         </div>
