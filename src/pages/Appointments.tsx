@@ -158,7 +158,7 @@ const searchAppointment = async (data:any) => {
     }
 
 
-    // searchpart
+    // edit part
     const [editappo , setEditappo] = useState(null)
     const [editform, setEditform] = useState({
         patientId: 0,
@@ -499,7 +499,7 @@ const searchAppointment = async (data:any) => {
                                     className="border p-2 rounded mb-2 w-full"
 
                                     >
-                                    <option value={0} disabled>{editform.patientId}</option>
+                                    <option value="" disabled>انتخاب بیمار</option>
                                     {patients.map((sp: any) => (
                                     <option key={sp.id} value={sp.id}>{sp.fullName}</option>
                                     ))}
@@ -509,15 +509,17 @@ const searchAppointment = async (data:any) => {
                                     value={editform.doctorScheduleId}
                                     onChange={changeEdit}
                                     className="border p-2 rounded mb-2 w-full"
-                                    
+                                    defaultValue={"hello"}
                                     >
-                                    <option value={0} disabled>  </option>
+                                        
+                                    {/* <option value={0} disabled> {editform.doctorScheduleId} </option> */}
                                     {docs.map((dc: any) => (
                                     <option key={dc.doctor.id} value={dc.doctor.id}>
                                         {dc.doctor.fullName}
                                     </option>
                                     ))}
                                     </select>  
+                                
                                 <input
                                     type="text"
                                     name="reason"
