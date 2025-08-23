@@ -69,6 +69,46 @@ export default function Specialist(){
         }
     }
 
+
+
+    // editpart
+    const [editspecie , setEditspecies] = useState(null)
+        const [editform, setEditform] = useState({
+            name:""
+        });
+
+        const editspecies = async(speci:any) => {
+        setEditspecies(speci);
+        setEditform({
+            name: speci.name || "" ,
+        })
+
+    }
+
+    const closeEdit = () => {
+        setEditspecies(null)
+    }
+
+    const changeEdit = (e: any) => {
+    const { name, value } = e.target;
+    setEditform((prev:any) => ({ ...prev, [name]: value }));
+    };
+
+    const saveEdit = async() => {
+        try {
+            await axios.put(`https://nowruzi.top/api/Clinic/specialties/${editspecie.id}`, editform)
+            toast.success("ویرایش با موفقیت انجام شد")
+            closeEdit()
+            getSpecialties()
+            
+        } catch (error) {
+            toast.error(error.response.data)
+            console.log("خطا در ویرایش" ,error.response.data );
+            
+        }
+
+    }
+
       return(
         <>
         <ToastContainer
@@ -148,9 +188,12 @@ export default function Specialist(){
                                 {special.doctorsCount}
                                 </td>
                                 <td className="px-4 py-3 flex gap-2 text-center justify-center  space-x-2 rtl:space-x-reverse">
-                                    {/* <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+                                    <button
+                                        onClick={() => editspecies(special)}
+                                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                                    >
                                         ویرایش
-                                    </button> */}
+                                    </button>
                                     <button
                                         onClick={() => deleteSpecialties(special.id)}
                                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
@@ -174,7 +217,48 @@ export default function Specialist(){
                     </div>
                     </div>
                 )}
-                
+                {editspecie && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+                    
+                        <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
+                            <h2 className="text-xl font-bold mb-4">ویرایش تخصص</h2>
+                        
+                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={editform.name}
+                                    onChange={changeEdit}
+                                    placeholder="نام"
+                                    className="border p-2 rounded mb-2 w-full col-span-2"
+                                    />
+                                
+                                   
+                                   
+                              
+                            </div>
+                            <div className="flex justify-end space-x-2 rtl:space-x-reverse grid grid-cols-2">
+                                <button
+                                    onClick={closeEdit}
+                                    className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
+                                >
+                                    لغو
+                                </button>
+                                <button
+                                    onClick={saveEdit}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                >
+                                    ذخیره
+                                </button>
+                            </div>
+                        </div>       
+
+
+
+                    </div>
+                   
+                )}
+
             </div>
         </>
       )
