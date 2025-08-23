@@ -169,7 +169,7 @@ export default function Patient(){
                                     <input
                                         placeholder="کد ملی"
                                         {...register("nationalCode", {
-                                        required: "شماره نظام پزشکی الزامی است",
+                                        required: "کد ملی الزامی است",
                                         minLength: { value: 10, message: "حداقل باید 10 کاراکتر باشد" },
                                         maxLength: { value: 10, message: "حداکثر باید 10 کاراکتر باشد" }
                                         

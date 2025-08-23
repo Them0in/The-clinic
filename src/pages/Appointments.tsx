@@ -265,7 +265,7 @@ const searchAppointment = async (data:any) => {
                     )}
 
                     {/* search*/}
-                    {/* <form onSubmit={handleSubmitSearch(searchAppointment)}>
+                    <form onSubmit={handleSubmitSearch(searchAppointment)}>
                         <div className="rounded-lg mb-3 p-3">
                             <div className="grid grid-cols-4 gap-3">
 
@@ -276,8 +276,10 @@ const searchAppointment = async (data:any) => {
                                         defaultValue=""
                                     >
                                         <option value={0}>انتخاب دکتر</option>
-                                        {docs.map((sp: any) => (
-                                        <option key={sp.id} value={sp.id}>{sp.fullName}</option>
+                                        {docs.map((dc: any) => (
+                                        <option key={dc.doctor.id} value={dc.doctor.id}>
+                                        {dc.doctor.fullName}
+                                        </option>
                                         ))}
                                     </select>
 
@@ -288,7 +290,7 @@ const searchAppointment = async (data:any) => {
                                 <div className="relative w-full">
                                     <input
                                         type="date"
-                                        {...registerSearch("FromDate", { required: "لطفا تاریخ شروع را وارد کنید" })}
+                                        {...registerSearch("FromDate")}
                                         className="border rounded p-2 w-full placeholder-transparent peer"
                                         placeholder=" تاریخ شروع"
                                     />
@@ -297,14 +299,14 @@ const searchAppointment = async (data:any) => {
                                          تاریخ شروع
                                     </label>
 
-                                    {errorsSearch.FromDate && (
+                                    {/* {errorsSearch.FromDate && (
                                         <span className="text-red-500 text-sm">{errorsSearch.FromDate.message}</span>
-                                    )}
+                                    )} */}
                                 </div>
                                 <div className="relative w-full">
                                     <input
                                         type="date"
-                                        {...registerSearch("ToDate", { required:  "لطفا تاریخ پایان را وارد کنید" })}
+                                        {...registerSearch("ToDate")}
                                         className="border rounded p-2 w-full placeholder-transparent peer"
                                         placeholder=" تاریخ پایان"
                                     />
@@ -312,15 +314,15 @@ const searchAppointment = async (data:any) => {
                                         peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
                                          تاریخ پایان
                                     </label>
-
+{/* 
                                     {errorsSearch.ToDate && (
                                         <span className="text-red-500 text-sm">{errorsSearch.ToDate.message}</span>
-                                    )}
+                                    )} */}
                                 </div>
 
                                 <div className="flex flex-col">
                                     <select
-                                        {...registerSearch("IsAvailable" )}
+                                        {...registerSearch("IsCancelled" )}
                                         className="border p-2 rounded"
                                         defaultValue=""
                                     >
@@ -333,7 +335,7 @@ const searchAppointment = async (data:any) => {
 
                                 <div className="flex justify-start mb-4">
                                     <button
-                                    onClick={searchSch}
+                                    onClick={searchAppointment}
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
                                     >
                                     جستجو
@@ -341,7 +343,7 @@ const searchAppointment = async (data:any) => {
                                 </div>
                             </div>
                         </div>
-                    </form> */}
+                    </form>
                     
                     {/* table  */}
                     <div className="bg-white rounded-lg shadow">
