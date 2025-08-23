@@ -129,6 +129,53 @@ export default function Doctors(){
         getSpeci();
     }, []);
 
+
+        const [editdocs , setEditdocs] = useState(null)
+        const [editform, setEditform] = useState({
+            specialtyId: 0,
+            firstName: "",
+            lastName: "",
+            medicalLicenseNumber: "ML00",
+            phoneNumber: "09",
+            gender: 1,
+        });
+
+        const editdocies = async(docie:any) => {
+        setEditdocs(docie);
+        setEditform({
+            specialtyId: docie.speciialtyId || "" ,
+            firstName:docie.firstName || "",
+            lastName: docie.lastName || "",
+            medicalLicenseNumber: docie.medicalLicenseNumber || "",
+            phoneNumber: docie.phoneNumber || "",
+            gender: docie.gender || 1,
+        })
+
+    }
+
+    const closeEdit = () => {
+        setEditdocs(null)
+    }
+
+    const changeEdit = (e: any) => {
+    const { name, value } = e.target;
+    setEditform((prev:any) => ({ ...prev, [name]: value }));
+    };
+
+    const saveEdit = async() => {
+        try {
+            await axios.put(`https://nowruzi.top/api/Clinic/doctors/${editdocs.id}`, editform)
+            toast.success("ویرایش با موفقیت انجام شد")
+            closeEdit()
+            getDocs()
+            
+        } catch (error) {
+            toast.error(error.response.data)
+            console.log("خطا در ویرایش" ,error.response.data );
+            
+        }
+
+    }
     return(
         <>
             <ToastContainer
@@ -242,7 +289,7 @@ export default function Doctors(){
                                         className="border p-2 rounded w-full"
                                         defaultValue=""
                                     >
-                                        <option value="" disabled>انتخاب تخصص</option>
+                                        <option value={0} disabled>انتخاب تخصص</option>
                                         {speci.map((sp: any) => (
                                         <option key={sp.id} value={sp.id}>{sp.name}</option>
                                         ))}
@@ -308,12 +355,12 @@ export default function Doctors(){
                                 <td className="px-4 py-3 text-center">{docies.schedulesCount}</td>
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                {/* <button
-                                    onClick={() => handleEdit(patient)}
+                                <button
+                                    onClick={() => editdocies(docies)}
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
                                 >
                                     ویرایش
-                                </button> */}
+                                </button>
                                 <button
                                     onClick={() => deleteDocs(docies.id)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
@@ -337,6 +384,96 @@ export default function Doctors(){
                     </div>
                     </div>
                 )}
+
+                {editdocs && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+                    
+                        <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
+                            <h2 className="text-xl font-bold mb-4">ویرایش بیمار</h2>
+                        
+                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={editform.firstName}
+                                    onChange={changeEdit}
+                                    placeholder="نام"
+                                    className="border p-2 rounded mb-2 w-full"
+                                    />
+                                
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    value={editform.lastName}
+                                    onChange={changeEdit}
+                                    placeholder="نام خانوادگی"
+                                    className="border p-2 rounded mb-2 w-full"
+                                    />
+                                <input
+                                    type="text"
+                                    name="medicalLicenseNumber"
+                                    value={editform.medicalLicenseNumber}
+                                    onChange={changeEdit}
+                                    placeholder="کد ملی"
+                                    className="border p-2 rounded mb-2 w-full"
+                                    />
+                                <input
+                                    type="text"
+                                    name="phoneNumber"
+                                    value={editform.phoneNumber}
+                                    onChange={changeEdit}
+                                    placeholder="شماره تماس"
+                                    className="border p-2 rounded mb-2 w-full"
+                                    />
+                                
+                                <select
+                                
+                                    name="gender"
+                                    value={editform.gender}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+                                    >
+                                    <option value={1}>مرد</option>
+                                    <option value={2}>زن</option>
+                                    </select>
+                                <select
+                                
+                                    name="specialtyId"
+                                    value={editform.specialtyId}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+                                    >
+                                    <option value="" disabled>انتخاب تخصص</option>
+                                    {speci.map((sp: any) => (
+                                    <option key={sp.id} value={sp.id}>{sp.name}</option>
+                                    ))}
+                                    </select>    
+                                   
+                              
+                            </div>
+                            <div className="flex justify-end space-x-2 rtl:space-x-reverse grid grid-cols-2">
+                                <button
+                                    onClick={closeEdit}
+                                    className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
+                                >
+                                    لغو
+                                </button>
+                                <button
+                                    onClick={saveEdit}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                >
+                                    ذخیره
+                                </button>
+                            </div>
+                        </div>       
+
+
+
+                    </div>
+                   
+                )}
+
+
             </div>
 
         </>
