@@ -146,9 +146,10 @@ const { register,
     const saveEdit = async() => {
         try {
             await axios.put(`https://nowruzi.top/api/Clinic/patients/${editpatient.id}`, editform)
+            toast.success("ویرایش با موفقیت انجام شد")
             closeEdit()
             getPatients()
-            toast("ویرایش با موفقیت انجام شد")
+            
         } catch (error) {
             toast.error(error.response.data)
             console.log("خطا در ویرایش" ,error.response.data );
@@ -360,127 +361,85 @@ const { register,
                 {/* Overlay when not logged in */}
                 {!isLoggedIn && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
-                        <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
-                        <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
-                    </div>
+                        <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
+                            <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
+                            <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
+                        </div>
                     </div>
                 )}
 
 
                 {editpatient && (
-                    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-                    <form onSubmit={handleSubmit(saveEdit)} onChange={changeEdit} className="rtl text-right " >
-                        <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+                    
+                        <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
                             <h2 className="text-xl font-bold mb-4">ویرایش بیمار</h2>
                         
-                            <div className="grid grid-cols-1 gap-3 w-full" dir="rtl">
-                                <div className="flex flex-col">
-                                    <input
+                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
+                                <input
+                                    type="text"
                                     name="firstName"
                                     value={editform.firstName}
                                     onChange={changeEdit}
                                     placeholder="نام"
                                     className="border p-2 rounded mb-2 w-full"
                                     />
-                                    {errors.firstName && (
-                                        <span className="text-red-500 text-xs mt-1">
-                                        {errors.firstName.message}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="flex flex-col">
-                                    <input
-                                        placeholder="نام خانوادگی"
-                                        {...register("lastName", { required: "نام خانوادگی" })}
-                                        className="border p-2 rounded text-right"
+                                
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    value={editform.lastName}
+                                    onChange={changeEdit}
+                                    placeholder="نام خانوادگی"
+                                    className="border p-2 rounded mb-2 w-full"
                                     />
-                                    {errors.lastName && (
-                                        <span className="text-red-500 text-xs mt-1">
-                                        {errors.lastName.message}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="flex flex-col">
-                                    <input
-                                        placeholder="کد ملی"
-                                        {...register("nationalCode", {
-                                        required: "کد ملی الزامی است",
-                                        minLength: { value: 10, message: "حداقل باید 10 کاراکتر باشد" },
-                                        maxLength: { value: 10, message: "حداکثر باید 10 کاراکتر باشد" }
-                                        
-                                        })}
-                                        className="border p-2 rounded"
+                                <input
+                                    type="text"
+                                    name="nationalCode"
+                                    value={editform.nationalCode}
+                                    onChange={changeEdit}
+                                    placeholder="کد ملی"
+                                    className="border p-2 rounded mb-2 w-full"
                                     />
-                                    {errors.nationalCode && (
-                                        <span className="text-red-500 text-xs mt-1">
-                                        {errors.nationalCode.message}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="flex flex-col">  
-                                    <input
-                                        placeholder="شماره تماس"
-                                        {...register("phoneNumber", {
-                                        required: "شماره تماس الزامی است",
-                                        minLength:{
-                                            value:11,
-                                            message: "حداقل باید 11 کاراکتر باشد",
-                                        },
-                                        
-                                        pattern: {
-                                            value: /^09\d{9}$/,
-                                            message: "شماره باید با 09 شروع شود و 11 رقم باشد",
-                                        },
-                                        })}
-                                        className="border p-2 rounded"
+                                <input
+                                    type="text"
+                                    name="phoneNumber"
+                                    value={editform.phoneNumber}
+                                    onChange={changeEdit}
+                                    placeholder="شماره تماس"
+                                    className="border p-2 rounded mb-2 w-full"
                                     />
-                                    {errors.phoneNumber && (
-                                        <span className="text-red-500"> {errors.phoneNumber.message}</span>
-                                    )}
-                                </div>
-                                <div className="relative w-full">
-                                    <input
-                                        type="date"
-                                        {...register("dateOfBirth", { required: "تاریخ تولد الزامی است" })}
-                                        className="border rounded p-2 w-full placeholder-transparent peer"
-                                        placeholder="تاریخ تولد"
+                                <input
+                                
+                                    type="date"
+                                    name="dateOfBirth"
+                                    value={editform.dateOfBirth}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
                                     />
-                                    <label className="absolute pr-6 right-3 top-2.5 text-gray-500 text-sm pointer-events-none transition-all 
-                                        peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
-                                        تاریخ تولد
-                                    </label>
-
-                                    {errors.dateOfBirth && (
-                                        <span className="text-red-500 text-sm">{errors.dateOfBirth.message}</span>
-                                    )}
-                                </div>
-                                <div className="flex flex-col">
-                                    <select
-                                        {...register("gender", { required: "انتخاب جنسیت الزامی است" })}
-                                        className="border p-2 rounded"
+                                <select
+                                
+                                    name="gender"
+                                    value={editform.gender}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
                                     >
-                                        <option value={1}>مرد</option>
-                                        <option value={2}>زن</option>
+                                    <option value={1}>مرد</option>
+                                    <option value={2}>زن</option>
                                     </select>
-                                </div>
-                                <div className="relative col-span-2">
-                                    <textarea
-                                        placeholder="آدرس"
-                                        
-                                        {...register("address", { required: "آدرس الزامی است" })}
-                                        className="border p-2 rounded w-full peer"
-                                    />
-
-                                    {errors.address && (
-                                        <span className="text-red-500 text-sm">{errors.address.message}</span>
-                                    )}
-                                </div>
+                                <input
+                                    type="text"
+                                    name="address"
+                                    value={editform.address}
+                                    onChange={changeEdit}
+                                    placeholder="آدرس"
+                                    className="border p-2 rounded mb-4 w-full col-span-2"
+                                    />    
                             </div>
-                            <div className="flex justify-end space-x-2 rtl:space-x-reverse">
+                            <div className="flex justify-end space-x-2 rtl:space-x-reverse grid grid-cols-2">
                                 <button
                                     onClick={closeEdit}
-                                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                                    className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
                                 >
                                     لغو
                                 </button>
@@ -492,7 +451,7 @@ const { register,
                                 </button>
                             </div>
                         </div>       
-                    </form>
+
 
 
                     </div>
