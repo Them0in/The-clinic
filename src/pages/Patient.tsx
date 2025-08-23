@@ -171,7 +171,7 @@ const { register,
         pauseOnHover
         theme="colored"
       />
-            <div className="relative max-w-6xl mx-auto ">
+            <div className="relative max-w-5xl mx-auto ">
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
@@ -322,20 +322,20 @@ const { register,
                         <table className="w-full text-black-500 text-sm ">
                         <thead className="bg-green-400">
                             <tr>
-                            <th className="px-4 py-3 text-right">#</th>
-                            <th className="px-4 py-3 text-right">نام کامل</th>
-                            <th className="px-4 py-3 text-right">کد ملی</th>
-                            <th className="px-4 py-3 text-right">شماره تماس</th>                         
+                            <th className="px-4 py-3 text-center">#</th>
+                            <th className="px-4 py-3 text-center">نام کامل</th>
+                            <th className="px-4 py-3 text-center">کد ملی</th>
+                            <th className="px-4 py-3 text-center">شماره تماس</th>                         
                             <th className="px-4 py-3 text-center">عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
                             {patients.map((patient: any, index: number) => (
                             <tr key={patient.id} className="hover:bg-gray-100">
-                                <td className="px-4 py-3">{index + 1}</td>
-                                <td className="px-4 py-3">{patient.fullName}</td>
-                                <td className="px-4 py-3">{patient.nationalCode}</td>
-                                <td className="px-4 py-3">{patient.phoneNumber}</td>
+                                <td className="px-4 py-3 text-center">{index + 1}</td>
+                                <td className="px-4 py-3 text-center">{patient.fullName}</td>
+                                <td className="px-4 py-3 text-center">{patient.nationalCode}</td>
+                                <td className="px-4 py-3 text-center">{patient.phoneNumber}</td>
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
                                 <button

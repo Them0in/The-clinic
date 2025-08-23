@@ -124,7 +124,7 @@ export default function Specialist(){
         theme="colored"
         />
            
-        <div className="relative max-w-6xl mx-auto ">
+        <div className="relative max-w-4xl mx-auto ">
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
