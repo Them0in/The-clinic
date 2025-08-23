@@ -391,8 +391,9 @@ const searchAppointment = async (data:any) => {
                                         defaultValue=""
                                     >
                                         <option value="">همه وضعیت‌ها</option>
-                                        <option value="true">فعال</option>
-                                        <option value="false">غیرفعال</option>
+                                        <option value="false">فعال</option>
+                                        <option value="true">لغو شده</option>
+                                        
                                     </select>
                                 </div>
                                 
@@ -496,9 +497,9 @@ const searchAppointment = async (data:any) => {
                                     value={editform.patientId}
                                     onChange={changeEdit}
                                     className="border p-2 rounded mb-2 w-full"
-                                    defaultValue={editform.patientId}
+
                                     >
-                                    {/* <option value={0} disabled>{editform.patientId}</option> */}
+                                    <option value={0} disabled>{editform.patientId}</option>
                                     {patients.map((sp: any) => (
                                     <option key={sp.id} value={sp.id}>{sp.fullName}</option>
                                     ))}
@@ -508,9 +509,9 @@ const searchAppointment = async (data:any) => {
                                     value={editform.doctorScheduleId}
                                     onChange={changeEdit}
                                     className="border p-2 rounded mb-2 w-full"
-                                    defaultValue={editform.doctorScheduleId}
+                                    
                                     >
-                                    {/* <option value={0} disabled> {editform.doctorScheduleId} </option> */}
+                                    <option value={0} disabled>  </option>
                                     {docs.map((dc: any) => (
                                     <option key={dc.doctor.id} value={dc.doctor.id}>
                                         {dc.doctor.fullName}
