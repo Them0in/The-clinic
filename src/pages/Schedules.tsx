@@ -223,7 +223,7 @@ const searchSch = async (data:any) => {
                                         type="time"
                                         {...registerForm("endTime", { required: "تاریخ پایان الزامی است"  })}
                                         className="border rounded p-2 w-full placeholder-transparent peer"
-                                        placeholder=" تاریخ شروع"
+                                        placeholder=" تاریخ پایان"
                                     />
                                     <label className="absolute pr-6 right-3 top-2.5 text-gray-500 text-sm pointer-events-none transition-all 
                                         peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
