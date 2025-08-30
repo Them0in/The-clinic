@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { ToastContainer , toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-
+import {  SquarePen , Trash} from "lucide-react";
 
 
 export default function Patient(){
@@ -338,18 +338,18 @@ const { register,
                                 <td className="px-4 py-3 text-center">{patient.phoneNumber}</td>
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                <button
-                                    onClick={() => editPat(patient)}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-                                >
-                                    ویرایش
-                                </button>
-                                <button
-                                    onClick={() => patDelete(patient.id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                                >
-                                    حذف
-                                </button>
+                                    <button
+                                        onClick={() => editPat(patient)}
+                                        className="text-blue-500 hover:text-blue-600"
+                                    >
+                                        <SquarePen/>
+                                    </button>
+                                    <button
+                                        onClick={() => patDelete(patient.id)}
+                                        className="text-red-500 hover:text-red-600"
+                                    >
+                                        <Trash />
+                                    </button>
                                 </td>
                             </tr>
                             ))}

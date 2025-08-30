@@ -2,7 +2,7 @@ import axios from "axios";
 import {useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
 import {ToastContainer , toast } from "react-toastify/unstyled";
-
+import {  SquarePen , Trash } from "lucide-react";
 
 
 export default function Doctors(){
@@ -355,18 +355,18 @@ export default function Doctors(){
                                 <td className="px-4 py-3 text-center">{docies.schedulesCount}</td>
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                <button
-                                    onClick={() => editdocies(docies)}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-                                >
-                                    ویرایش
-                                </button>
-                                <button
-                                    onClick={() => deleteDocs(docies.id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                                >
-                                    حذف
-                                </button>
+                                    <button
+                                        onClick={() => editdocies(docies)}
+                                        className="text-blue-500 hover:text-blue-600"
+                                    >
+                                        <SquarePen/>
+                                    </button>
+                                    <button
+                                        onClick={() => deleteDocs(docies.id)}
+                                        className="text-red-500 hover:text-red-600"
+                                    >
+                                        <Trash />
+                                    </button>
                                 </td>
                             </tr>
                             ))}

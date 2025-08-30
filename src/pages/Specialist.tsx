@@ -1,6 +1,9 @@
 import axios from "axios";
 import { use, useEffect, useState } from "react";
 import {ToastContainer , toast } from "react-toastify";
+import {Ban , SquarePen , Trash} from "lucide-react";
+
+
 
 export default function Specialist(){
       const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -124,7 +127,7 @@ export default function Specialist(){
         theme="colored"
         />
            
-        <div className="relative max-w-4xl mx-auto ">
+        <div className="relative max-w-3xl mx-auto ">
                 <div className={`p-6 space-y-8  text-right " ${!isLoggedIn ? "blur-sm pointer-events-none" : ""} ` } dir="rtl">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
@@ -190,15 +193,15 @@ export default function Specialist(){
                                 <td className="px-4 py-3 flex gap-2 text-center justify-center  space-x-2 rtl:space-x-reverse">
                                     <button
                                         onClick={() => editspecies(special)}
-                                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                                        className="text-blue-500 hover:text-blue-600"
                                     >
-                                        ویرایش
+                                        <SquarePen/>
                                     </button>
                                     <button
                                         onClick={() => deleteSpecialties(special.id)}
-                                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                                        className="text-red-500 hover:text-red-600 "
                                     >
-                                        حذف
+                                        <Trash/>
                                     </button>
                                 </td>
                             </tr>

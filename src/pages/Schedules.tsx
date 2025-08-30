@@ -2,7 +2,7 @@ import axios from "axios";
 import {useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
 import {ToastContainer , toast } from "react-toastify/unstyled";
-import { Check, X } from "lucide-react";
+import { Check, X , SquarePen , Trash} from "lucide-react";
 
 
 export default function Schedules(){
@@ -372,17 +372,17 @@ const searchSch = async (data:any) => {
 
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                {/* <button
-                                    onClick={() => handleEdit(patient)}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                                <button
+                                    
+                                    className="text-blue-500 hover:text-blue-600"
                                 >
-                                    ویرایش
-                                </button> */}
+                                    <SquarePen/>
+                                </button>
                                 <button
                                     onClick={() => deleteSch(docies.id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                                    className="text-red-500 hover:text-red-600"
                                 >
-                                    حذف
+                                    <Trash />
                                 </button>
                                 </td>
                             </tr>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {ToastContainer , toast } from "react-toastify/unstyled";
-import { Check, X } from "lucide-react";
+import {Ban , SquarePen , Trash} from "lucide-react";
 import Patient from "./Patient";
 
 
@@ -439,20 +439,20 @@ const searchAppointment = async (data:any) => {
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
                                 <button
-                                    onClick={() => editappies(docies)}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-                                >
-                                    ویرایش
-                                </button>
+                                        onClick={() => editappies(docies)}
+                                        className="text-blue-500 hover:text-blue-600"
+                                    >
+                                        <SquarePen/>
+                                    </button>
                                 {docies.status === "فعال" ? (
                                     <button
                                     onClick={() => {
                                         setSelectedId(docies.id);
                                         setCancelAppointment(true);
                                     }}
-                                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                                    className="text-green-500 hover:text-green-600"
                                     >
-                                    لغو
+                                    <Ban/>
                                     </button>
                                 ) : (
                                     <></>
@@ -460,9 +460,9 @@ const searchAppointment = async (data:any) => {
                                 {docies.status === "لغو شده" ? (
                                     <button
                                     onClick={() => deleteAppointment(docies.id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                                    className="text-red-500 hover:text-red-600 "
                                 >
-                                    حذف
+                                    <Trash />
                                 </button>
                                 ):
                                 <></>
