@@ -102,9 +102,9 @@ export default function Schedules(){
     getDocs();
     getSch();
   }, []);
-    
 
-const searchSch = async (data:any) => {
+
+    const searchSch = async (data:any) => {
   try {
     const response = await axios.get(
       "https://nowruzi.top/api/Clinic/schedules/search",
@@ -137,6 +137,54 @@ const searchSch = async (data:any) => {
         }
     }
 
+
+
+
+
+
+      // edit part
+    const [editsch , setEditsch] = useState(null)
+    const [editform, setEditform] = useState({
+        doctorId: 0,
+        day: "",
+        startTime: "",
+        endTime: "",
+    });
+
+    const editschies = async(docie:any) => {
+    setEditsch(docie);
+    setEditform({
+        doctorId: docie.doctor.id || "" ,
+        day:docie.day || "",
+        startTime: docie.startTime || "",
+        endTime: docie.endTime || "",
+    })
+
+    }
+
+    const closeEdit = () => {
+        setEditsch(null)
+    }
+
+    const changeEdit = (e: any) => {
+    const { name, value } = e.target;
+    setEditform((prev:any) => ({ ...prev, [name]: value }));
+    };
+    
+    const saveEdit = async() => {
+        try {
+            await axios.put(`https://nowruzi.top/api/Clinic/appointments/${editsch.id}`, editform)
+            toast.success("ویرایش با موفقیت انجام شد")
+            closeEdit()
+            getSch()
+            
+        } catch (error) {
+            toast.error(error.response.data)
+            console.log("خطا در ویرایش" ,error.response.data );
+            
+        }
+
+    }
 
     return(
         <>
@@ -373,7 +421,7 @@ const searchSch = async (data:any) => {
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
                                 <button
-                                    
+                                    onClick={() => editschies(docies)}
                                     className="text-blue-500 hover:text-blue-600"
                                 >
                                     <SquarePen/>
@@ -392,6 +440,76 @@ const searchSch = async (data:any) => {
                         </table>
                     </div>
                 </div>
+                {editsch && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+                    
+                        <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
+                            <h2 className="text-xl font-bold mb-4">ویرایش نوبت</h2>
+                        
+                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
+                                
+                                <select                               
+                                    name="doctorId"
+                                    value={editform.doctorId}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+                                    defaultValue={"hello"}
+                                    >
+                                        
+                                    <option value="" disabled>انتخاب دکتر</option>
+                                    {docs.map((dc: any) => (
+                                    <option key={dc.id} value={dc.id}>
+                                        {dc.fullName}
+                                    </option>
+                                    ))}
+                                    </select>  
+                                
+                                <input
+                                    type="date"
+                                    name="day"
+                                    value={editform.day}
+                                    onChange={changeEdit}
+                                    placeholder="روز"
+                                    className="border p-2 rounded mb-2 w-full col-span-1"
+                                    />   
+                                <input
+                                    type="time"
+                                    name="notes"
+                                    value={editform.startTime}
+                                    onChange={changeEdit}
+                                    placeholder="تاریخ شروع"
+                                    className="border p-2 rounded mb-2 w-full col-span-1"
+                                    />       
+                                <input
+                                    type="time"
+                                    name="notes"
+                                    value={editform.endTime}
+                                    onChange={changeEdit}
+                                    placeholder="تاریخ پایان"
+                                    className="border p-2 rounded mb-2 w-full col-span-1"
+                                    />                                   
+                            </div>
+                            <div className="flex justify-end space-x-2 rtl:space-x-reverse grid grid-cols-2">
+                                <button
+                                    onClick={closeEdit}
+                                    className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-white"
+                                >
+                                    لغو
+                                </button>
+                                <button
+                                    onClick={saveEdit}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                >
+                                    ذخیره
+                                </button>
+                            </div>
+                        </div>       
+
+
+
+                    </div>
+                   
+                )}
                 {/* Overlay when not logged in */}
                 {!isLoggedIn && (
                     <div className="absolute inset-0 flex items-start justify-center pt-60">

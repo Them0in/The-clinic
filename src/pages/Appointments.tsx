@@ -512,7 +512,7 @@ const searchAppointment = async (data:any) => {
                                     defaultValue={"hello"}
                                     >
                                         
-                                    {/* <option value={0} disabled> {editform.doctorScheduleId} </option> */}
+                                    <option value="" disabled>انتخاب دکتر</option>
                                     {docs.map((dc: any) => (
                                     <option key={dc.doctor.id} value={dc.doctor.id}>
                                         {dc.doctor.fullName}
