@@ -38,7 +38,7 @@ export default function Footer(){
                         
                         {/* Clinic Info */}
                         <div>
-                            <h4 className="text-lg font-semibold  mb-3">کلینیک درمانی</h4>
+                            <h4 className="text-lg font-semibold  mb-3">کلینیک سلامت</h4>
                             <p className=" text-sm">
                                 ارائه بهترین خدمات درمانی با جدیدترین تکنولوژی‌ها
                             </p>
