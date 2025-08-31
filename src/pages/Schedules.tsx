@@ -420,18 +420,18 @@ export default function Schedules(){
 
                                 
                                 <td className="px-4 py-3 flex justify-center gap-2 text-center space-x-2 rtl:space-x-reverse">
-                                <button
-                                    onClick={() => editschies(docies)}
-                                    className="text-blue-500 hover:text-blue-600"
-                                >
-                                    <SquarePen/>
-                                </button>
-                                <button
-                                    onClick={() => deleteSch(docies.id)}
-                                    className="text-red-500 hover:text-red-600"
-                                >
-                                    <Trash />
-                                </button>
+                                    <button
+                                        onClick={() => editschies(docies)}
+                                        className="text-blue-500 hover:text-blue-600"
+                                    >
+                                        <SquarePen/>
+                                    </button>
+                                    <button
+                                        onClick={() => deleteSch(docies.id)}
+                                        className="text-red-500 hover:text-red-600"
+                                    >
+                                        <Trash />
+                                    </button>
                                 </td>
                             </tr>
                             ))}
