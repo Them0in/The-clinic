@@ -75,7 +75,7 @@ export default function Specialist(){
 
 
     // editpart
-    const [editspecie , setEditspecies] = useState(null)
+        const [editspecie , setEditspecies] = useState(null)
         const [editform, setEditform] = useState({
             name:""
         });
@@ -86,7 +86,7 @@ export default function Specialist(){
             name: speci.name || "" ,
         })
 
-    }
+        }
 
     const closeEdit = () => {
         setEditspecies(null)
@@ -229,21 +229,20 @@ export default function Specialist(){
                             <div className="grid grid-cols-1 gap-3 w-full" dir="rtl">
                                 
                                 
-                                <select                               
-                                        name="doctorScheduleId"
-                                        value={editform.name}
-                                        onChange={changeEdit}
-                                        className="border p-2 rounded mb-2 w-full"
-                                        defaultValue={editform.name}
-                                        >
-                                            
-                                        <option value={editform.name} disabled>{editform.name}</option>
-                                        {specialties.map((dc: any) => (
-                                        <option key={dc.id} value={dc.id}>
-                                            {dc.name}
-                                        </option>
-                                        ))}
-                                        </select>         
+                                  
+                                <select
+                                
+                                    name="name"
+                                    value={editform.name}
+                                    onChange={changeEdit}
+                                    className="border p-2 rounded mb-2 w-full"
+
+                                    >
+                                    
+                                    {specialties.map((sp: any) => (
+                                    <option key={sp.id} defaultValue={sp.id} >{sp.name}</option>
+                                    ))}
+                                    </select>       
                                    
                               
                             </div>
