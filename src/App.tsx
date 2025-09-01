@@ -10,6 +10,7 @@ import Patient from "./pages/Patient"
 import Specialist from "./pages/Specialist"
 import Appointment from "./pages/Appointments";
 import Schedules from "./pages/Schedules";
+import Error404 from "./pages/404errorpage";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/Login" element={<Login/>}/>
           <Route path="/Register" element={<Register />}/>
-          
+          <Route path="*" element={<Error404 />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />}/>
             <Route path="/doctors" element={<Doctors />}/>
@@ -45,8 +46,9 @@ function App() {
             
                 
 
-                    <Route path="reports" element={<div>صفحه گزارشات</div>} />
-                    <Route path="settings" element={<div>صفحه تنظیمات</div>} />
+            <Route path="reports" element={<div>صفحه گزارشات</div>} />
+            <Route path="settings" element={<div>صفحه تنظیمات</div>} />
+            
           </Route>
         </Routes>
       </BrowserRouter>
