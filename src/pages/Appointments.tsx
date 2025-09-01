@@ -364,9 +364,6 @@ const searchAppointment = async (data:any) => {
                                          تاریخ شروع
                                     </label>
 
-                                    {/* {errorsSearch.FromDate && (
-                                        <span className="text-red-500 text-sm">{errorsSearch.FromDate.message}</span>
-                                    )} */}
                                 </div>
                                 <div className="relative w-full">
                                     <input
@@ -379,10 +376,6 @@ const searchAppointment = async (data:any) => {
                                         peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base">
                                          تاریخ پایان
                                     </label>
-{/* 
-                                    {errorsSearch.ToDate && (
-                                        <span className="text-red-500 text-sm">{errorsSearch.ToDate.message}</span>
-                                    )} */}
                                 </div>
 
                                 <div className="flex flex-col">
