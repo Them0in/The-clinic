@@ -226,17 +226,24 @@ export default function Specialist(){
                         <div className="bg-white backdrop-blur-sm rounded-lg p-6 w-full max-w-md rtl text-right">
                             <h2 className="text-xl font-bold mb-4">ویرایش تخصص</h2>
                         
-                            <div className="grid grid-cols-2 gap-3 w-full" dir="rtl">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={editform.name}
-                                    onChange={changeEdit}
-                                    placeholder="نام"
-                                    className="border p-2 rounded mb-2 w-full col-span-2"
-                                    />
+                            <div className="grid grid-cols-1 gap-3 w-full" dir="rtl">
                                 
-                                   
+                                
+                                <select                               
+                                        name="doctorScheduleId"
+                                        value={editform.name}
+                                        onChange={changeEdit}
+                                        className="border p-2 rounded mb-2 w-full"
+                                        defaultValue={editform.name}
+                                        >
+                                            
+                                        <option value={editform.name} disabled>{editform.name}</option>
+                                        {specialties.map((dc: any) => (
+                                        <option key={dc.id} value={dc.id}>
+                                            {dc.name}
+                                        </option>
+                                        ))}
+                                        </select>         
                                    
                               
                             </div>

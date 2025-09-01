@@ -47,6 +47,7 @@ export default function Appointment(){
         doctorScheduleId: 0,
         reason: "",
         notes: "",
+
     },
     });
 
@@ -499,7 +500,7 @@ const searchAppointment = async (data:any) => {
                                     className="border p-2 rounded mb-2 w-full"
 
                                     >
-                                    <option value="" disabled>انتخاب بیمار</option>
+                                    <option value="" disabled> {} </option>
                                     {patients.map((sp: any) => (
                                     <option key={sp.id} value={sp.id}>{sp.fullName}</option>
                                     ))}
@@ -512,7 +513,7 @@ const searchAppointment = async (data:any) => {
                                     defaultValue={"hello"}
                                     >
                                         
-                                    <option value="" disabled>انتخاب دکتر</option>
+                                    <option value={editform.doctorScheduleId} disabled> {editform.doctorScheduleId} </option>
                                     {docs.map((dc: any) => (
                                     <option key={dc.doctor.id} value={dc.doctor.id}>
                                         {dc.doctor.fullName}
