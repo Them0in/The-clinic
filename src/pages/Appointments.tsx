@@ -493,7 +493,7 @@ const searchAppointment = async (data:any) => {
                                     className="border p-2 rounded mb-2 w-full"
 
                                     >
-                                    <option value="" disabled> {} </option>
+                                    <option value="" disabled> انتخاب بیمار </option>
                                     {patients.map((sp: any) => (
                                     <option key={sp.id} value={sp.id}>{sp.fullName}</option>
                                     ))}
@@ -506,7 +506,7 @@ const searchAppointment = async (data:any) => {
                                     defaultValue={"hello"}
                                     >
                                         
-                                    <option value={editform.doctorScheduleId} disabled> {editform.doctorScheduleId} </option>
+                                    <option value="" disabled> انتخاب دکتر </option>
                                     {docs.map((dc: any) => (
                                     <option key={dc.doctor.id} value={dc.doctor.id}>
                                         {dc.doctor.fullName}
