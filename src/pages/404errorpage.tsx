@@ -1,8 +1,19 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
-const Error404: React.FC = () => {
+export default function Error404() {
+  const helpfulLinks = [
+    { name: "خانه", path: "/" },
+    { name: "پزشکان", path: "/doctors" },
+    { name: "بیماران", path: "/Patients" },
+    { name: "تخصص‌ها", path: "/Specialties" },
+    { name: "برنامه‌ها", path: "/Schedules" },
+    { name: "نوبت‌ها", path: "/appointments" },
+    { name: "گزارشات", path: "/reports" },
+    { name: "تنظیمات", path: "/settings" },
+  ];
+
   return (
-    <div className="bg-gradient-to-br from-indigo-50 to-blue-100 min-h-screen font-['Inter'] flex items-center justify-center p-4">
+    <div className="bg-gradient-to-br from-indigo-50 to-blue-100 min-h-screen font-sans flex items-center justify-center p-4" dir="rtl">
       <div className="max-w-4xl w-full mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
           {/* Illustration Section */}
@@ -23,9 +34,7 @@ const Error404: React.FC = () => {
               </div>
               <div className="relative z-10 text-center">
                 <div className="text-white text-9xl font-bold mb-2">404</div>
-                <div className="text-blue-100 text-xl font-medium">
-                  Page Not Found
-                </div>
+                <div className="text-blue-100 text-xl font-medium">صفحه یافت نشد</div>
               </div>
             </div>
           </div>
@@ -33,11 +42,10 @@ const Error404: React.FC = () => {
           {/* Content Section */}
           <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Oops! Lost in Space?
+              اوپس! گم شدیم؟
             </h1>
             <p className="text-gray-600 mb-6">
-              The page you're looking for doesn't exist or has been moved. Don't
-              worry, we'll help you navigate back to safety.
+              صفحه‌ای که به دنبال آن هستید وجود ندارد یا منتقل شده است. نگران نباشید، ما به شما کمک می‌کنیم به مسیر درست بازگردید.
             </p>
 
             <div className="mb-8">
@@ -57,23 +65,18 @@ const Error404: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-gray-700">Here are some helpful links instead:</p>
+                <p className="text-gray-700">در اینجا می‌توانید به صفحات مفید بروید:</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { name: "Home", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10..." },
-                  { name: "Blog", icon: "M8 7V3m8 4V3m-9 8h10M5 21..." },
-                  { name: "About Us", icon: "M16 7a4 4 0 11-8 0..." },
-                  { name: "Contact", icon: "M3 8l7.89 5.26a2..." },
-                ].map((link, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-sm font-medium transition-colors flex items-center"
+                {helpfulLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-sm font-medium transition-colors flex items-center gap-2"
                   >
                     <svg
-                      className="w-4 h-4 mr-2 text-indigo-500"
+                      className="w-4 h-4 mr-2 text-indigo-500 "
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -82,64 +85,27 @@ const Error404: React.FC = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d={link.icon}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                       />
                     </svg>
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-medium transition-colors flex items-center justify-center"
               >
-                <svg
-                  className="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
-                  />
-                </svg>
-                Go Back
-              </a>
-              <a
-                href="#"
-                className="px-6 py-3 border border-gray-300 hover:bg-gray-50 rounded-lg text-gray-700 font-medium transition-colors flex items-center justify-center"
-              >
-                <svg
-                  className="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                Contact Support
-              </a>
+                بازگشت به خانه
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 text-center text-gray-500 text-sm">
-          <p>© 2023 Your Company. All rights reserved.</p>
-        </div>
       </div>
     </div>
   );
-};
-
-export default Error404;
+}
