@@ -11,6 +11,7 @@ import Specialist from "./pages/Specialist"
 import Appointment from "./pages/Appointments";
 import Schedules from "./pages/Schedules";
 import Error404 from "./pages/404errorpage";
+import SmoothScroll from "./components/SmoothScroll";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
+        <SmoothScroll />
         <Routes>
           <Route path="/Login" element={<Login/>}/>
           <Route path="/Register" element={<Register />}/>
