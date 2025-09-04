@@ -5,7 +5,7 @@ import Lenis from "lenis";
 const SmoothScroll = () => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2, // scroll speed
+      duration: 1000000,
       smoothWheel: true,
 
     });
