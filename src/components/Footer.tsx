@@ -54,7 +54,7 @@ export default function Footer(){
 
                     {/* Footer bottom */}
                     <div className="border-t border-gray-300 mt-10 pt-4 text-center  text-sm">
-                        &copy; 1404 کلینیک درمانی. تمامی حقوق محفوظ است.
+                        &copy; 1404 کلینیک سلامت. تمامی حقوق محفوظ است.
                     </div>
 
                 </div>

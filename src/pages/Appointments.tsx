@@ -469,15 +469,7 @@ const searchAppointment = async (data:any) => {
                         </table>
                     </div>
                 </div>
-                {/* Overlay when not logged in */}
-                {!isLoggedIn && (
-                    <div className="absolute inset-0 flex items-start justify-center pt-60">
-                    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
-                        <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
-                        <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
-                    </div>
-                    </div>
-                )}
+                {/* editform */}
                 {editappo && (
                     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
                     
@@ -584,6 +576,15 @@ const searchAppointment = async (data:any) => {
                         </div>
                     </div>
                 </div>
+                )}
+                {/* Overlay when not logged in */}
+                {!isLoggedIn && (
+                    <div className="absolute inset-0 flex items-start justify-center pt-60">
+                    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
+                        <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
+                        <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
+                    </div>
+                    </div>
                 )}
             </div>
 

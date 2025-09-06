@@ -8,8 +8,6 @@ export default function Error404() {
     { name: "تخصص‌ها", path: "/Specialties" },
     { name: "برنامه‌ها", path: "/Schedules" },
     { name: "نوبت‌ها", path: "/appointments" },
-    { name: "گزارشات", path: "/reports" },
-    { name: "تنظیمات", path: "/settings" },
   ];
 
   return (

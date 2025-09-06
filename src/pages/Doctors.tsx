@@ -6,6 +6,7 @@ import {  SquarePen , Trash } from "lucide-react";
 
 
 export default function Doctors(){
+    // loginfunction
     const [isLoggedIn, setIsLoggedIn] = useState(false);
      const checkLoginStatus = () => {
         const userId = localStorage.getItem("userId");
@@ -29,7 +30,7 @@ export default function Doctors(){
 
 
 
-
+    // pagefunctions
     const [docs , setDocs] = useState([])
     const [searchTerm, setSearchTerm] = useState("");
     const [showForm, setShowForm] = useState(false);
@@ -64,7 +65,7 @@ export default function Doctors(){
             
         }
     }
-
+    // search
     const searchDocs = async (prms: any) => {
         try {
             const response = await axios.get("https://nowruzi.top/api/Clinic/doctors/search",
@@ -81,7 +82,7 @@ export default function Doctors(){
         
     }
 
-
+    // add
     const addDocs = async (data:any) => {
         try {
             await axios.post("https://nowruzi.top/api/Clinic/doctors", data)
@@ -129,27 +130,27 @@ export default function Doctors(){
         getSpeci();
     }, []);
 
+    // editpart
+    const [editdocs , setEditdocs] = useState(null)
+    const [editform, setEditform] = useState({
+        specialtyId: 0,
+        firstName: "",
+        lastName: "",
+        medicalLicenseNumber: "ML00",
+        phoneNumber: "09",
+        gender: 1,
+    });
 
-        const [editdocs , setEditdocs] = useState(null)
-        const [editform, setEditform] = useState({
-            specialtyId: 0,
-            firstName: "",
-            lastName: "",
-            medicalLicenseNumber: "ML00",
-            phoneNumber: "09",
-            gender: 1,
-        });
-
-        const editdocies = async(docie:any) => {
-        setEditdocs(docie);
-        setEditform({
-            specialtyId: docie.speciialtyId || "" ,
-            firstName:docie.firstName || "",
-            lastName: docie.lastName || "",
-            medicalLicenseNumber: docie.medicalLicenseNumber || "",
-            phoneNumber: docie.phoneNumber || "",
-            gender: docie.gender || 1,
-        })
+    const editdocies = async(docie:any) => {
+    setEditdocs(docie);
+    setEditform({
+        specialtyId: docie.speciialtyId || "" ,
+        firstName:docie.firstName || "",
+        lastName: docie.lastName || "",
+        medicalLicenseNumber: docie.medicalLicenseNumber || "",
+        phoneNumber: docie.phoneNumber || "",
+        gender: docie.gender || 1,
+    })
 
     }
 
@@ -178,7 +179,7 @@ export default function Doctors(){
     }
     return(
         <>
-            <ToastContainer
+        <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -375,16 +376,7 @@ export default function Doctors(){
                         </table>
                     </div>
                 </div>
-                {/* Overlay when not logged in */}
-                {!isLoggedIn && (
-                    <div className="absolute inset-0 flex items-start justify-center pt-60">
-                    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
-                        <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
-                        <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
-                    </div>
-                    </div>
-                )}
-
+                {/* editform */}
                 {editdocs && (
                     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
                     
@@ -471,6 +463,15 @@ export default function Doctors(){
 
                     </div>
                    
+                )}
+                {/* Overlay when not logged in */}
+                {!isLoggedIn && (
+                    <div className="absolute inset-0 flex items-start justify-center pt-60">
+                    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 text-center">
+                        <h2 className="text-xl font-bold mb-2">⚠️ باید ابتدا وارد شوید</h2>
+                        <p className="text-gray-600">لطفاً از منوی بالا وارد حساب کاربری خود شوید</p>
+                    </div>
+                    </div>
                 )}
 
 
