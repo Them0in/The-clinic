@@ -212,7 +212,7 @@ export default function Schedules(){
                         + افزودن دکتر
                         </button>
                     </div>
-                    {/* header patient form */}
+                    {/* header schedules form */}
                     {showForm && (
                         <form onSubmit={handleSubmitForm(addSch)}>
                         <div className="rounded-lg mb-3 p-3">

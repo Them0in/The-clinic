@@ -139,7 +139,7 @@ export default function Specialist(){
                         افزودن تخصص +
                         </button>
                     </div>
-                    {/* header patient form */}
+                    {/* header specialist form */}
                     {showForm && (
                         <div className="bg-gray-100  p-4 rounded-lg mb-4 flex justify-between  ">
                             <div className="grid grid-cols-1">

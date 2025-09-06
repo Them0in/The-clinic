@@ -203,7 +203,7 @@ export default function Doctors(){
                         + افزودن دکتر
                         </button>
                     </div>
-                    {/* header patient form */}
+                    {/* header doctor form */}
                     {showForm && (
                         <form onSubmit={handleSubmit(addDocs)}>
                         <div className="rounded-lg mb-3 p-3">

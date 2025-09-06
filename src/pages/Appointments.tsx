@@ -248,7 +248,7 @@ const searchAppointment = async (data:any) => {
                         + افزودن نوبت
                         </button>
                     </div>
-                    {/* header patient form */}
+                    {/* header appointment form */}
                     {showForm && (
                         <form onSubmit={handleSubmitForm(addAppointment)}>
                         <div className="rounded-lg mb-3 p-3">
